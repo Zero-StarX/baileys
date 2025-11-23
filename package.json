@@ -1,20 +1,19 @@
 {
-    "name": "@yumenative/baileys",
-    "version": "2.0.3",
-    "description": "WhatsApp API Modification By K",
+    "name": "@yuchiiitaka/baileys",
+    "version": "1.0.2",
+    "description": "WhatsApp API Modification By Yuchii",
     "keywords": [
         "whatsapp",
-        "laurine-wabot",
         "baileys",
         "whatsapp-web",
         "whatsapp-chat",
         "whatsapp-group",
         "botwa",
-        "stvnnvs"
+        "YC-Bot"
     ],
-    "homepage": "https://www.npmjs.com/package/@stvnnvs/baileys",
+    "homepage": "https://www.npmjs.com/package/@zerostarx/baileys",
     "repository": {
-        "url": "https://www.npmjs.com/package/@stvnnvs/baileys"
+        "url": "https://www.npmjs.com/package/@zerostarx/baileys"
     },
     "license": "MIT",
     "author": "Adhiraj Singh",
@@ -76,7 +75,7 @@
         "open": "^8.4.2",
         "qrcode-terminal": "^0.12.0",
         "release-it": "^15.10.3",
-        "sharp": "^0.30.5",
+        "sharp": "^0.34.1",
         "ts-jest": "^27.0.3",
         "ts-node": "^10.8.1",
         "typedoc": "^0.24.7",
@@ -87,7 +86,7 @@
         "jimp": "^0.16.1",
         "link-preview-js": "^3.0.0",
         "qrcode-terminal": "^0.12.0",
-        "sharp": "^0.32.2"
+        "sharp": "^0.34.1"
     },
     "peerDependenciesMeta": {
         "jimp": {

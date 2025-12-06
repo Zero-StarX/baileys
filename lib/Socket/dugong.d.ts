@@ -1,7 +1,6 @@
-// dugong.d.ts
 import { proto } from '../../WAProto';
 
-declare namespace kikyy {
+declare namespace Zero {
     interface MediaUploadOptions {
         fileEncSha256?: Buffer;
         mediaType?: string;
@@ -55,6 +54,13 @@ declare namespace kikyy {
         };
     }
 
+    interface NativeFlowButton {
+        name: string;
+        buttonParamsJson: string;
+        buttonText?: string;
+        [key: string]: any;
+    }
+
     interface ProductMessage {
         title: string;
         description: string;
@@ -63,15 +69,18 @@ declare namespace kikyy {
         retailerId: string;
         url: string;
         body?: string;
+        caption?: string;
         footer?: string;
-        buttons?: proto.Message.InteractiveMessage.INativeFlowButton[];
+        buttons?: NativeFlowButton[];
         priceAmount1000?: number | null;
         currencyCode?: string;
     }
 
     interface InteractiveMessage {
         header?: string;
-        title: string;
+        title?: string;
+        body?: string;
+        caption?: string;
         footer?: string;
         thumbnail?: string;
         image?: string | Buffer | { url: string };
@@ -108,10 +117,10 @@ declare namespace kikyy {
             renderLargerThumbnail?: boolean;
             [key: string]: any;
         };
-        buttons?: proto.Message.InteractiveMessage.INativeFlowButton[];
+        buttons?: NativeFlowButton[];
         nativeFlowMessage?: {
             messageParamsJson?: string;
-            buttons?: proto.Message.InteractiveMessage.INativeFlowButton[];
+            buttons?: NativeFlowButton[];
             [key: string]: any;
         };
     }
@@ -190,65 +199,60 @@ declare namespace kikyy {
     }
 }
 
-declare class kikyy {
+declare class Zero {
     constructor(
-        utils: kikyy.Utils,
-        waUploadToServer: kikyy.WAMediaUploadFunction,
+        utils: Zero.Utils,
+        waUploadToServer: Zero.WAMediaUploadFunction,
         relayMessageFn?: (jid: string, content: any, options?: any) => Promise<any>
     );
     
-    detectType(content: kikyy.MessageContent): 'PAYMENT' | 'PRODUCT' | 'INTERACTIVE' | 'ALBUM' | 'EVENT' | 'POLL_RESULT' | 'GROUP_STORY' | null;
+    detectType(content: Zero.MessageContent): 'PAYMENT' | 'PRODUCT' | 'INTERACTIVE' | 'ALBUM' | 'EVENT' | 'POLL_RESULT' | 'GROUP_STORY' | null;
 
     handlePayment(
-        content: { requestPaymentMessage: kikyy.PaymentMessage },
+        content: { requestPaymentMessage: Zero.PaymentMessage },
         quoted?: proto.IWebMessageInfo
     ): Promise<{ requestPaymentMessage: proto.Message.RequestPaymentMessage }>;
 
     handleProduct(
-        content: { productMessage: kikyy.ProductMessage },
+        content: { productMessage: Zero.ProductMessage },
         jid: string,
         quoted?: proto.IWebMessageInfo
     ): Promise<{ viewOnceMessage: proto.Message.ViewOnceMessage }>;
 
     handleInteractive(
-        content: { interactiveMessage: kikyy.InteractiveMessage },
+        content: { interactiveMessage: Zero.InteractiveMessage },
         jid: string,
         quoted?: proto.IWebMessageInfo
     ): Promise<{ interactiveMessage: proto.Message.InteractiveMessage }>;
 
     handleAlbum(
-        content: { albumMessage: kikyy.AlbumItem[] },
+        content: { albumMessage: Zero.AlbumItem[] },
         jid: string,
         quoted?: proto.IWebMessageInfo
     ): Promise<any>;
 
     handleEvent(
-        content: { eventMessage: kikyy.EventMessage },
+        content: { eventMessage: Zero.EventMessage },
         jid: string,
         quoted?: proto.IWebMessageInfo
     ): Promise<any>;
     
     handlePollResult(
-        content: { pollResultMessage: kikyy.PollResultMessage },
+        content: { pollResultMessage: Zero.PollResultMessage },
         jid: string,
         quoted?: proto.IWebMessageInfo
     ): Promise<any>;
 
     handleGroupStory(
-        content: { groupStatusMessage: kikyy.GroupStatusMessage },
+        content: { groupStatusMessage: Zero.GroupStatusMessage },
         jid: string,
         quoted?: proto.IWebMessageInfo
     ): Promise<any>;
 
-    buildMessageContent(
-        content: any,
-        opts?: kikyy.WAMessageContentGenerationOptions
-    ): Promise<any>;
-
-    utils: kikyy.Utils;
+    utils: Zero.Utils;
     relayMessage: (jid: string, content: any, options?: any) => Promise<any>;
-    waUploadToServer: kikyy.WAMediaUploadFunction;
-    bail: kikyy.BailUtils;
+    waUploadToServer: Zero.WAMediaUploadFunction;
+    bail: Zero.BailUtils;
 }
 
-export = kikyy;
+export = Zero;
